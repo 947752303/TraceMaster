@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home,
+                R.id.nav_gallery,
+                R.id.nav_slideshow)
                 .setOpenableLayout(drawer)
                 .build();
         //NavController与界面绑定
@@ -46,8 +48,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        // 侧边栏图标
-//        ImageView juiceIcon = navigationView.getHeaderView(0).findViewById(R.id.imageView);
+        // 数据库部分
+        String a = null;
+        if (a == null) {
+            Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(R.id.action_nav_home_to_nav_login);
+        }
 
         //如果没有定位权限，动态请求用户允许使用该权限
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
