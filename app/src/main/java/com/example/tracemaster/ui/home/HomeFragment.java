@@ -34,6 +34,7 @@ import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.example.tracemaster.R;
+import com.example.tracemaster.data.viewModel.HomeViewModel;
 import com.example.tracemaster.service.LocationApplication;
 import com.example.tracemaster.service.LocationService;
 

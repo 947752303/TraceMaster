@@ -7,7 +7,7 @@
 
     <string name="menu_home">首页</string>
     <string name="menu_gallery">历史记录</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_about">关于</string>
 
     <string name="et_uno">账号</string>
     <string name="et_passed">密码</string>

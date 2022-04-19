@@ -15,6 +15,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.tracemaster.app.Constant;
+import com.example.tracemaster.utils.PreferencesUtils;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home,
                 R.id.nav_gallery,
-                R.id.nav_slideshow)
+                R.id.nav_about,
+                R.id.nav_login)
                 .setOpenableLayout(drawer)
                 .build();
         //NavController与界面绑定
@@ -48,9 +51,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        PreferencesUtils.init(this);
+
         // 数据库部分
-        String a = null;
-        if (a == null) {
+        boolean first = PreferencesUtils.getBoolean(Constant.FIRST_LOGO, false);
+        if (!first) {
             Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(R.id.action_nav_home_to_nav_login);
         }
 
