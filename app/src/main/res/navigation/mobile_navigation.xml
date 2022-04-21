@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.tracemaster.ui.home.HomeFragment"
+        android:name="com.xyz.tracemaster.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -19,18 +19,18 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.tracemaster.ui.gallery.GalleryFragment"
+        android:name="com.xyz.tracemaster.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_about"
-        android:name="com.example.tracemaster.ui.about.AboutFragment"
+        android:name="com.xyz.tracemaster.ui.about.AboutFragment"
         android:label="@string/menu_about"
         tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/nav_login"
-        android:name="com.example.tracemaster.ui.login.LoginFragment"
+        android:name="com.xyz.tracemaster.ui.login.LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_nav_login_to_nav_home"

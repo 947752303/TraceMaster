@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context="com.xyz.tracemaster.ui.home.HomeFragment">
 
     <com.baidu.mapapi.map.MapView
         android:id="@+id/bmapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true">
-    </com.baidu.mapapi.map.MapView>
+        android:clickable="true"></com.baidu.mapapi.map.MapView>
 
     <Button
         android:id="@+id/buttonStart"
@@ -21,42 +19,55 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="10dip"
-        android:text="开始" />
+        android:text="@string/btn_start" />
+
+    <TextView
+        android:id="@+id/textViewRecordTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonStart"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shap_progress_bg"
+        android:hint=" 计时：15秒 "
+        android:textSize="17sp"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/buttonFinish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="25dp"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="10dip"
-        android:text="停止" />
+        android:layout_marginRight="25dp"
+        android:text="@string/btn_end" />
 
     <RelativeLayout
         android:id="@+id/progressBarRl"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
-        android:visibility="gone"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textColor="@android:color/black"
-            android:text="GPS信号连接中，请稍后..." />
+            android:text="GPS信号连接中，请稍后..."
+            android:textColor="@android:color/black" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
-            android:paddingLeft="20dp"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:paddingRight="10dp"
             android:layout_toLeftOf="@id/info"
-            android:layout_height="wrap_content" />
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp" />
     </RelativeLayout>
 
 </RelativeLayout>

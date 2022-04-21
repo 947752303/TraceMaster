@@ -13,4 +13,9 @@
     <string name="et_passed">密码</string>
     <string name="btn_logo">登录</string>
     <string name="btn_user_item">用户条款</string>
+
+    <string name="btn_start">开始</string>
+    <string name="btn_end">结束</string>
+    <string name="search_gps">GPS信号搜索中，请稍后…</string>
+    
 </resources>
