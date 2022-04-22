@@ -18,11 +18,22 @@ public class Trace {
     private String latLngList;  //位置列表
     private Long startTime;     //开始时间
     private Long endTime;       //结束时间
+    private String location;    //开始时候的位置中文
 
-    public Trace(String latLngList, Long startTime, Long endTime) {
+    public Trace(String latLngList, Long startTime, Long endTime, String location) {
         this.latLngList = latLngList;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.location = location;
+    }
+
+    @NonNull
+    public Integer getTraceId() {
+        return traceId;
+    }
+
+    public void setTraceId(@NonNull Integer traceId) {
+        this.traceId = traceId;
     }
 
     public String getLatLngList() {
@@ -49,12 +60,11 @@ public class Trace {
         this.endTime = endTime;
     }
 
-    @NonNull
-    public Integer getTraceId() {
-        return traceId;
+    public String getLocation() {
+        return location;
     }
 
-    public void setTraceId(@NonNull Integer traceId) {
-        this.traceId = traceId;
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

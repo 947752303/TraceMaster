@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
     private MapView mMapView = null;
     private BaiduMap mBaiduMap = null;
     private Button start, finish;
-    private TextView info, textViewRecordTime;
+    private TextView info;
     private RelativeLayout progressBarRl;
     private BitmapDescriptor startBD, finishBD;
 
@@ -56,28 +56,21 @@ public class HomeFragment extends Fragment {
     private TraceViewModel traceViewModel;
     private MyLocationData locData;
     private MapStatus.Builder builder;
-
-    private boolean startRecord = false;
-
     private float mCurrentZoom = 18f; //默认地图缩放比例值
     private int mCurrentDirection = 0;
 
     private LatLng last = new LatLng(0, 0);//上一个定位点
     private LatLng currentLat;
     private LatLng firstLat;
+    private String locationChinese;
     private boolean isFirstLat = true;
-
+    private boolean startRecord = false;
     //开始记录后的位置点集合
     private List<LatLng> currentLatList = new ArrayList<LatLng>();
     Polyline mPolyline;//运动轨迹图层
 
     private Long startTime;
     private Long endTime;
-
-    //类的对象
-    private MyOrientationListener mMyOrientationListener;
-    //接受方向角
-    private float mCurrentX;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -111,7 +104,6 @@ public class HomeFragment extends Fragment {
         start = root.findViewById(R.id.buttonStart);
         finish = root.findViewById(R.id.buttonFinish);
         info = root.findViewById(R.id.info);
-        textViewRecordTime = root.findViewById(R.id.textViewRecordTime);
         progressBarRl = root.findViewById(R.id.progressBarRl);
         //起点图标
         startBD = BitmapDescriptorFactory.fromResource(R.drawable.ic_me_history_startpoint);
@@ -157,7 +149,7 @@ public class HomeFragment extends Fragment {
                     endTime = Calendar.getInstance().getTimeInMillis();
 
                     // 将追踪记录存入数据库
-                    Trace trace = new Trace(currentLatList.toString(), startTime, endTime);
+                    Trace trace = new Trace(currentLatList.toString(), startTime, endTime, locationChinese);
                     traceViewModel.insertTrace(trace);
                     currentLatList.clear();
 
@@ -182,6 +174,8 @@ public class HomeFragment extends Fragment {
                 // 第一个定位点
                 if (isFirstLat) {
                     firstLat = new LatLng(location.getLatitude(), location.getLongitude());
+                    locationChinese = location.getAddrStr().substring(2);
+//                    System.out.println("locationChinese" + locationChinese);
                     // 路径列表里加入第一个点
                     currentLatList.add(firstLat);
                     //显示当前定位点，缩放地图
@@ -193,9 +187,10 @@ public class HomeFragment extends Fragment {
                 // 获取第二个点
                 currentLat = new LatLng(location.getLatitude(), location.getLongitude());
                 locateAndZoom(location, currentLat);
+
                 //sdk回调gps位置的频率是1秒1个，位置点太近动态画在图上不是很明显，可以设置点之间距离大于为6米才添加到集合中
-                if (DistanceUtil.getDistance(last, currentLat) < 6) {
-                    System.out.println("小于6米");
+                if (DistanceUtil.getDistance(last, currentLat) < 0) {
+//                    System.out.println("小于6米");
                     return;
                 }
                 if (startRecord) {
@@ -204,7 +199,6 @@ public class HomeFragment extends Fragment {
                 }
 
                 last = currentLat;
-                System.out.println("last:" + last);
 
                 //清除上一次轨迹，避免重叠绘画
 //                mMapView.getMap().clear();
@@ -234,9 +228,6 @@ public class HomeFragment extends Fragment {
         mBaiduMap = mMapView.getMap();
         //开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
-
-
-//        textViewRecordTime.setText(" 用时：15秒 ");
 
         /**添加地图缩放状态变化监听，当手动放大或缩小地图时，拿到缩放后的比例，然后获取到下次定位，
          *  给地图重新设置缩放比例，否则地图会重新回到默认的mCurrentZoom缩放比例
@@ -298,17 +289,4 @@ public class HomeFragment extends Fragment {
         builder.target(ll).zoom(mCurrentZoom);
         mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
     }
-
-    private void initOrientation() {
-        //传感器
-        mMyOrientationListener = new MyOrientationListener(requireContext());
-        mMyOrientationListener.setOnOrientationListener(new MyOrientationListener.OnOrientationListener() {
-            @Override
-            public void onOrientationChanged(float x) {
-                mCurrentX = x;
-//                Log.d("angle:", "sda:" + mCurrentX);
-            }
-        });
-    }
-
 }

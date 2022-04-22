@@ -21,19 +21,6 @@
         android:layout_marginTop="10dip"
         android:text="@string/btn_start" />
 
-    <TextView
-        android:id="@+id/textViewRecordTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonStart"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/shap_progress_bg"
-        android:hint=" 计时：15秒 "
-        android:textSize="17sp"
-        android:visibility="gone"/>
-
     <Button
         android:id="@+id/buttonFinish"
         android:layout_width="wrap_content"

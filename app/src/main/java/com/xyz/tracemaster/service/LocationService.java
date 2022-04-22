@@ -29,8 +29,7 @@ public class LocationService {
                 try {
                     client = new LocationClient(locationContext);
                     client.setLocOption(getDefaultLocationClientOption());
-                } catch (Exception exception) {
-                    System.out.println("LocationService:" + exception);
+                } catch (Exception ignored) {
                 }
 
             }
@@ -95,6 +94,7 @@ public class LocationService {
             mOption.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系，如果配合百度地图使用，建议设置为bd09ll;
             mOption.setScanSpan(1000);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
             mOption.setNeedDeviceDirect(true);//可选，设置是否需要设备方向结果
+            mOption.setIsNeedAddress(true);
         }
         return mOption;
     }

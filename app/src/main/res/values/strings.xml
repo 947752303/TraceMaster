@@ -17,5 +17,7 @@
     <string name="btn_start">开始</string>
     <string name="btn_end">结束</string>
     <string name="search_gps">GPS信号搜索中，请稍后…</string>
+
+    <string name="empty">暂无数据</string>
     
 </resources>
