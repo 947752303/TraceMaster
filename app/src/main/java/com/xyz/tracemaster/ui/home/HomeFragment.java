@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class    HomeFragment extends Fragment {
     private MapView mMapView = null;
     private BaiduMap mBaiduMap = null;
     private Button start, finish;
@@ -164,7 +164,7 @@ public class HomeFragment extends Fragment {
             if (location == null || mMapView == null) {
                 return;
             }
-            initBeginningAndEndListener();
+//            initBeginningAndEndListener();
             if (location.getLocType() == BDLocation.TypeGpsLocation
                     || location.getLocType() == BDLocation.TypeNetWorkLocation) {
 

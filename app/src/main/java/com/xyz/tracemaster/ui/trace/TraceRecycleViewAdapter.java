@@ -1,15 +1,21 @@
-package com.xyz.tracemaster.ui.gallery;
+package com.xyz.tracemaster.ui.trace;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.xyz.tracemaster.R;
 import com.xyz.tracemaster.data.bean.Trace;
+import com.xyz.tracemaster.data.viewModel.TraceViewModel;
 import com.xyz.tracemaster.utils.HistoryUtils;
 
 import java.util.ArrayList;
@@ -25,9 +31,24 @@ public class TraceRecycleViewAdapter extends RecyclerView.Adapter<TraceRecycleVi
     private static final int VIEW_TYPE_EMPTY = 0;
     private static final int VIEW_TYPE_ITEM = 1;
     private List<Trace> traceArrayList = new ArrayList<>();
+    private TraceViewModel traceViewModel;
+    private Interface mListener;
 
     public void setTraceArrayList(List<Trace> traceArrayList) {
         this.traceArrayList = traceArrayList;
+    }
+
+    public TraceRecycleViewAdapter(TraceViewModel traceViewModel) {
+        this.traceViewModel = traceViewModel;
+    }
+
+    public TraceRecycleViewAdapter(Interface mListener) {
+        this.mListener = mListener;
+    }
+
+    
+    public interface Interface{
+        void onWork(View view,String loc);//在这里可以自定义想要实现的方法，一般是传入adapter里的变量供activity使用。
     }
 
     @NonNull
@@ -64,7 +85,7 @@ public class TraceRecycleViewAdapter extends RecyclerView.Adapter<TraceRecycleVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TraceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TraceViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if (traceArrayList != null && !traceArrayList.isEmpty()) {
             Trace trace = traceArrayList.get(position);
             holder.textViewLocation.setText(trace.getLocation());
@@ -73,7 +94,30 @@ public class TraceRecycleViewAdapter extends RecyclerView.Adapter<TraceRecycleVi
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    System.out.println("点击了");
+                    mListener.onWork(v,trace.getLocation());
+                    NavController navController = Navigation.findNavController(v);
+                    navController.navigate(R.id.action_nav_gallery_to_nav_history);
+                }
+            });
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    new AlertDialog.Builder(holder.itemView.getContext())
+                            .setTitle("是否删除当前记录")
+                            .setMessage(R.string.delete)
+                            .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                                @SuppressLint("NotifyDataSetChanged")
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    traceArrayList.remove(position);
+                                    traceViewModel.deleteTrace(trace.getTraceId());
+                                    notifyDataSetChanged();
+                                    notifyItemRangeChanged(0, traceArrayList.size());
+                                }
+                            })
+                            .setNegativeButton("取消", null)
+                            .show();
+                    return false;
                 }
             });
         }

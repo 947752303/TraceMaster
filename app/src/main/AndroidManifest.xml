@@ -46,8 +46,8 @@
         <!--应用Key是在百度开发者页面里生成的，需要替换-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="vZ4qurpEpIXtvyD6XqTqR2WbSfpbsvdG" />
-
+            android:value="9T8YrC1W3Ct3rwNiKzwvpE3blev19HAw" />
+<!--        vZ4qurpEpIXtvyD6XqTqR2WbSfpbsvdG-->
         <activity
             android:name="com.xyz.tracemaster.MainActivity"
             android:exported="true"

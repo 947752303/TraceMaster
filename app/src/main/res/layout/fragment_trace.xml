@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.xyz.tracemaster.ui.gallery.GalleryFragment">
+    tools:context="com.xyz.tracemaster.ui.trace.TraceFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView

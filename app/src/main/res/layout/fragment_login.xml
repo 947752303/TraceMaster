@@ -144,13 +144,13 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/userItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
         android:text="@string/btn_user_item"
         android:textColor="@color/blue"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"

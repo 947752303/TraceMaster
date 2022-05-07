@@ -2,6 +2,7 @@ package com.xyz.tracemaster.ui.login;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -24,6 +26,8 @@ import com.xyz.tracemaster.utils.PreferencesUtils;
 public class LoginFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private Button bt_logo;
+    private Button userItem;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,6 +37,7 @@ public class LoginFragment extends Fragment {
         // 禁止侧滑打开抽屉
         mDrawerLayout = requireActivity().findViewById(R.id.drawer_layout);
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
         onclick();
 
         return root;
@@ -42,6 +47,7 @@ public class LoginFragment extends Fragment {
 
     private void findID(View view) {
         bt_logo = view.findViewById(R.id.bt_logo);
+        userItem = view.findViewById(R.id.userItem);
 
     }
 
@@ -78,6 +84,20 @@ public class LoginFragment extends Fragment {
                 ((AppCompatActivity) requireActivity()).getSupportActionBar().show();
             }
         });
+        //点击用户协议，弹出对话框
+        userItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(requireContext())
+                        .setTitle("用户条款")
+                        .setMessage(R.string.user_item)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+//                        dialog.dismiss();
+                            }
+                        }).create().show();
+            }
+        });
     }
 
     @Override
@@ -90,4 +110,5 @@ public class LoginFragment extends Fragment {
             supportActionBar.hide();
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package com.xyz.tracemaster.ui.gallery;
+package com.xyz.tracemaster.ui.trace;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -20,9 +20,9 @@ import com.xyz.tracemaster.data.viewModel.TraceViewModel;
 
 import java.util.List;
 
-public class GalleryFragment extends Fragment {
+public class TraceFragment extends Fragment {
     private RecyclerView traceRecyclerView;
-    private TraceViewModel traceViewModel;
+    public TraceViewModel traceViewModel;
     private TraceRecycleViewAdapter traceRecycleViewAdapter;
     private LiveData<List<Trace>> traceListLiveData;
 
@@ -30,12 +30,12 @@ public class GalleryFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
 
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
+        View root = inflater.inflate(R.layout.fragment_trace, container, false);
         findID(root);
         traceViewModel = new ViewModelProvider(requireActivity()).get(TraceViewModel.class);
 
         traceRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        traceRecycleViewAdapter = new TraceRecycleViewAdapter();
+        traceRecycleViewAdapter = new TraceRecycleViewAdapter(traceViewModel);
         traceRecyclerView.setAdapter(traceRecycleViewAdapter);
 
         return root;
@@ -44,7 +44,6 @@ public class GalleryFragment extends Fragment {
 
     private void findID(View root) {
         traceRecyclerView = root.findViewById(R.id.traceRecyclerView);
-
     }
 
     @Override
