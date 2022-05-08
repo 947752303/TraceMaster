@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class    HomeFragment extends Fragment {
+public class HomeFragment extends Fragment {
     private MapView mMapView = null;
     private BaiduMap mBaiduMap = null;
     private Button start, finish;
@@ -56,7 +56,7 @@ public class    HomeFragment extends Fragment {
     private TraceViewModel traceViewModel;
     private MyLocationData locData;
     private MapStatus.Builder builder;
-    private float mCurrentZoom = 18f; //默认地图缩放比例值
+    private float mCurrentZoom = 19f; //默认地图缩放比例值
     private int mCurrentDirection = 0;
 
     private LatLng last = new LatLng(0, 0);//上一个定位点
@@ -175,7 +175,6 @@ public class    HomeFragment extends Fragment {
                 if (isFirstLat) {
                     firstLat = new LatLng(location.getLatitude(), location.getLongitude());
                     locationChinese = location.getAddrStr().substring(2);
-//                    System.out.println("locationChinese" + locationChinese);
                     // 路径列表里加入第一个点
                     currentLatList.add(firstLat);
                     //显示当前定位点，缩放地图
@@ -189,15 +188,14 @@ public class    HomeFragment extends Fragment {
                 locateAndZoom(location, currentLat);
 
                 //sdk回调gps位置的频率是1秒1个，位置点太近动态画在图上不是很明显，可以设置点之间距离大于为6米才添加到集合中
-                if (DistanceUtil.getDistance(last, currentLat) < 0) {
-//                    System.out.println("小于6米");
+                if (DistanceUtil.getDistance(last, currentLat) < 5) {
+//                    System.out.println("小于5米");
                     return;
                 }
                 if (startRecord) {
                     //如果要运动完成后画整个轨迹，位置点都在这个集合中
                     currentLatList.add(currentLat);
                 }
-
                 last = currentLat;
 
                 //清除上一次轨迹，避免重叠绘画

@@ -9,5 +9,5 @@ package com.xyz.tracemaster.app;
  */
 public class Constant {
     public static final String FIRST_LOGO = "FIRST_LOGIN";
-
+    public static final String LOC = "LOC";
 }

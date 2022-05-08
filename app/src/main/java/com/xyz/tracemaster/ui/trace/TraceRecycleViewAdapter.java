@@ -14,9 +14,11 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.xyz.tracemaster.R;
+import com.xyz.tracemaster.app.Constant;
 import com.xyz.tracemaster.data.bean.Trace;
 import com.xyz.tracemaster.data.viewModel.TraceViewModel;
 import com.xyz.tracemaster.utils.HistoryUtils;
+import com.xyz.tracemaster.utils.PreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,6 @@ public class TraceRecycleViewAdapter extends RecyclerView.Adapter<TraceRecycleVi
     private static final int VIEW_TYPE_ITEM = 1;
     private List<Trace> traceArrayList = new ArrayList<>();
     private TraceViewModel traceViewModel;
-    private Interface mListener;
 
     public void setTraceArrayList(List<Trace> traceArrayList) {
         this.traceArrayList = traceArrayList;
@@ -40,15 +41,6 @@ public class TraceRecycleViewAdapter extends RecyclerView.Adapter<TraceRecycleVi
 
     public TraceRecycleViewAdapter(TraceViewModel traceViewModel) {
         this.traceViewModel = traceViewModel;
-    }
-
-    public TraceRecycleViewAdapter(Interface mListener) {
-        this.mListener = mListener;
-    }
-
-    
-    public interface Interface{
-        void onWork(View view,String loc);//在这里可以自定义想要实现的方法，一般是传入adapter里的变量供activity使用。
     }
 
     @NonNull
@@ -94,7 +86,8 @@ public class TraceRecycleViewAdapter extends RecyclerView.Adapter<TraceRecycleVi
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.onWork(v,trace.getLocation());
+                    PreferencesUtils.putString(Constant.LOC, trace.getLatLngList());
+
                     NavController navController = Navigation.findNavController(v);
                     navController.navigate(R.id.action_nav_gallery_to_nav_history);
                 }
@@ -104,7 +97,6 @@ public class TraceRecycleViewAdapter extends RecyclerView.Adapter<TraceRecycleVi
                 public boolean onLongClick(View v) {
                     new AlertDialog.Builder(holder.itemView.getContext())
                             .setTitle("是否删除当前记录")
-                            .setMessage(R.string.delete)
                             .setPositiveButton("是", new DialogInterface.OnClickListener() {
                                 @SuppressLint("NotifyDataSetChanged")
                                 @Override

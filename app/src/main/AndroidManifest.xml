@@ -47,7 +47,8 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="9T8YrC1W3Ct3rwNiKzwvpE3blev19HAw" />
-<!--        vZ4qurpEpIXtvyD6XqTqR2WbSfpbsvdG-->
+<!--        我的vZ4qurpEpIXtvyD6XqTqR2WbSfpbsvdG-->
+<!--        我弟9T8YrC1W3Ct3rwNiKzwvpE3blev19HAw-->
         <activity
             android:name="com.xyz.tracemaster.MainActivity"
             android:exported="true"
